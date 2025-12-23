@@ -334,7 +334,87 @@ erDiagram
 
 ---
 
-## 11. Kết Luận
+## 11. Sơ Đồ Use Case
+
+```mermaid
+flowchart TB
+    subgraph Actors["👥 Actors"]
+        Guest["🧑 Khách (Guest)"]
+        User["👤 Người dùng (User)"]
+        Admin["👨‍💼 Quản trị viên (Admin)"]
+    end
+    
+    subgraph GuestUC["Use Cases - Khách"]
+        UC1["Xem danh sách sản phẩm"]
+        UC2["Xem chi tiết sản phẩm"]
+        UC3["Tìm kiếm sản phẩm"]
+        UC4["Lọc theo danh mục"]
+        UC5["Đăng ký tài khoản"]
+        UC6["Đăng nhập"]
+    end
+    
+    subgraph UserUC["Use Cases - Người dùng"]
+        UC7["Thêm vào giỏ hàng"]
+        UC8["Xem giỏ hàng"]
+        UC9["Cập nhật số lượng"]
+        UC10["Xóa khỏi giỏ hàng"]
+        UC11["Đặt hàng"]
+        UC12["Xem lịch sử đơn hàng"]
+        UC13["Cập nhật thông tin cá nhân"]
+        UC14["Đăng xuất"]
+    end
+    
+    subgraph AdminUC["Use Cases - Quản trị viên"]
+        UC15["Quản lý sản phẩm"]
+        UC16["Quản lý danh mục"]
+        UC17["Quản lý đơn hàng"]
+        UC18["Quản lý người dùng"]
+        UC19["Xem thống kê"]
+    end
+    
+    Guest --> UC1
+    Guest --> UC2
+    Guest --> UC3
+    Guest --> UC4
+    Guest --> UC5
+    Guest --> UC6
+    
+    User --> UC1
+    User --> UC2
+    User --> UC3
+    User --> UC4
+    User --> UC7
+    User --> UC8
+    User --> UC9
+    User --> UC10
+    User --> UC11
+    User --> UC12
+    User --> UC13
+    User --> UC14
+    
+    Admin --> UC15
+    Admin --> UC16
+    Admin --> UC17
+    Admin --> UC18
+    Admin --> UC19
+```
+
+### Mô tả Use Cases:
+
+| Actor | Use Case | Mô tả |
+|-------|----------|-------|
+| **Khách** | Xem sản phẩm | Duyệt và xem chi tiết sản phẩm không cần đăng nhập |
+| **Khách** | Tìm kiếm/Lọc | Tìm sản phẩm theo tên hoặc lọc theo danh mục |
+| **Khách** | Đăng ký/Đăng nhập | Tạo tài khoản mới hoặc đăng nhập |
+| **Người dùng** | Giỏ hàng | Thêm, sửa, xóa sản phẩm trong giỏ |
+| **Người dùng** | Đặt hàng | Hoàn tất thanh toán và đặt hàng |
+| **Người dùng** | Lịch sử | Xem các đơn hàng đã đặt |
+| **Admin** | Quản lý CRUD | Thêm/Sửa/Xóa sản phẩm, danh mục, đơn hàng |
+| **Admin** | Thống kê | Xem báo cáo doanh thu, đơn hàng |
+
+---
+
+## 12. Kết Luận
 
 Dự án **Kiddo Toys Hub** được xây dựng theo kiến trúc hiện đại với:
 

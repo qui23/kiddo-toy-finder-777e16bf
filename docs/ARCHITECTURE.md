@@ -236,7 +236,105 @@ flowchart LR
 
 ---
 
-## 10. Kết Luận
+## 10. Sơ Đồ ERD (Entity Relationship Diagram)
+
+```mermaid
+erDiagram
+    USERS ||--o{ PROFILES : has
+    USERS ||--o{ USER_ROLES : has
+    USERS ||--o{ ORDERS : places
+    USERS ||--o{ CART_ITEMS : has
+    
+    PROFILES {
+        uuid id PK
+        uuid user_id FK
+        string first_name
+        string last_name
+        string avatar_url
+        timestamp created_at
+    }
+    
+    USER_ROLES {
+        uuid id PK
+        uuid user_id FK
+        enum role "admin, moderator, user"
+    }
+    
+    PRODUCTS ||--o{ CART_ITEMS : contains
+    PRODUCTS ||--o{ ORDER_ITEMS : contains
+    CATEGORIES ||--o{ PRODUCTS : has
+    
+    CATEGORIES {
+        uuid id PK
+        string name
+        string description
+        string image_url
+        timestamp created_at
+    }
+    
+    PRODUCTS {
+        uuid id PK
+        string name
+        text description
+        decimal price
+        integer stock
+        string image_url
+        uuid category_id FK
+        boolean is_featured
+        timestamp created_at
+    }
+    
+    CART_ITEMS {
+        uuid id PK
+        uuid user_id FK
+        uuid product_id FK
+        integer quantity
+        timestamp created_at
+    }
+    
+    ORDERS ||--|{ ORDER_ITEMS : contains
+    
+    ORDERS {
+        uuid id PK
+        uuid user_id FK
+        decimal total_amount
+        string status
+        string shipping_address
+        timestamp created_at
+    }
+    
+    ORDER_ITEMS {
+        uuid id PK
+        uuid order_id FK
+        uuid product_id FK
+        integer quantity
+        decimal price
+    }
+```
+
+### Mô tả các bảng:
+
+| Bảng | Mô tả |
+|------|-------|
+| **users** | Bảng hệ thống của Supabase Auth, chứa thông tin đăng nhập |
+| **profiles** | Thông tin chi tiết người dùng (tên, avatar) |
+| **user_roles** | Phân quyền người dùng (admin, moderator, user) |
+| **categories** | Danh mục sản phẩm đồ chơi |
+| **products** | Sản phẩm đồ chơi (tên, giá, mô tả, hình ảnh) |
+| **cart_items** | Giỏ hàng của người dùng |
+| **orders** | Đơn hàng đã đặt |
+| **order_items** | Chi tiết các sản phẩm trong đơn hàng |
+
+### Các mối quan hệ:
+
+- **1-N**: Một user có nhiều profiles, roles, orders, cart_items
+- **1-N**: Một category có nhiều products
+- **1-N**: Một order có nhiều order_items
+- **N-1**: Mỗi product thuộc một category
+
+---
+
+## 11. Kết Luận
 
 Dự án **Kiddo Toys Hub** được xây dựng theo kiến trúc hiện đại với:
 
@@ -244,8 +342,9 @@ Dự án **Kiddo Toys Hub** được xây dựng theo kiến trúc hiện đại
 - **UI**: Tailwind CSS + Shadcn/UI cho giao diện đẹp, responsive
 - **State Management**: TanStack Query cho quản lý dữ liệu server hiệu quả
 - **Backend**: Supabase cung cấp giải pháp BaaS hoàn chỉnh
+- **Database**: PostgreSQL với thiết kế ERD chuẩn hóa
 - **Security**: Row Level Security đảm bảo bảo mật dữ liệu
 
 ---
 
-*Tài liệu được tạo tự động bởi Lovable AI - Ngày: 22/12/2024*
+*Tài liệu được tạo tự động bởi Lovable AI - Ngày: 23/12/2024*
